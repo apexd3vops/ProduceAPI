@@ -3,13 +3,11 @@ from datetime import datetime
 
 
 class Produce(BaseModel):
-    id = int
+    id: int
     strProduce: str
     strDescription: str
     created_at: datetime
     strCategory: str
-    strCatDescription: str
-    strContact: str
     strProduceThumb: str
     on_sale: bool
 

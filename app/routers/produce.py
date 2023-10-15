@@ -1,7 +1,6 @@
 from sqlalchemy.orm import Session
 from typing import List, Optional
 from fastapi import Response, status, HTTPException, Depends, APIRouter
-from app import oauth2
 
 from ..database import get_db
 from .. import models, responses, schemas
@@ -14,8 +13,9 @@ router = APIRouter(
     tags=['Produce']
 )
 
+#oauth2 will handle authentication for creating, editing, and deleting produce.
 
-@router.get('/', response_model=responses.Produce)
+@router.get('/', response_model=List[responses.Produce])
 def get_all_produce(db: Session = Depends(get_db), limit: Optional[int] = None, search: Optional[str] = ''):
     produce = db.query(models.Produce).limit(limit).all()
     return produce 
@@ -35,6 +35,7 @@ def get_produce(id: int, db: Session = Depends(get_db)):
 def create_produce(post: schemas.Produce, db: Session = Depends(get_db)):
     
     new_produce = models.Produce(**post.dict())
+    strCatDescription = new_produce.strCatDescription
 
     db.add(new_produce)
     db.commit()

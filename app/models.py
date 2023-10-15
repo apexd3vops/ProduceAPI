@@ -17,23 +17,25 @@ class Categories(Base):
     strCategory = Column(String, nullable=False, unique=True)
     strCatDescription = Column(String, nullable= False, unique=True)
     created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
-    
+    produces = relationship("Produce", backref="category")
+
+
+
+# TODO: CHat GPT db test 1
 class Produce(Base):
     __tablename__ = 'produce'
     id = Column(Integer, primary_key=True, nullable=False)
     strProduce = Column(String, nullable=False)
     strDescription = Column(String, nullable=False)
-    strContact = Column(String, nullable= False)
     strProduceThumb = Column(String, nullable=False)
-    # strTags = TODO: How do you add a list to a database
     on_sale = Column(Boolean, nullable=False, server_default='False')
-    created_at = Column(TIMESTAMP(timezone=True),
-                        nullable=False, server_default=text('now()'))
+    created_at = Column(TIMESTAMP(timezone=True), nullable=False, server_default=text('now()'))
     strCategory = Column(String, ForeignKey("categories.strCategory", ondelete="CASCADE"), nullable=True)
+    category = relationship("Categories")
 
-  # ForeignKey modified
-    strCatDescription = Column(String, ForeignKey("categories.strCatDescription", ondelete="CASCADE"), nullable=True)
-    # created_by = TODO: Add a column to show admin active on the server. It should track who adds a produce and who verifies purchase. Vendors earn money from approving transactions. Is blockchain technology possible and how should I implement it here.
+
+
+# seller = TODO: Add a column to show admin active on the server. It should track who adds a produce and who verifies purchase. Vendors earn money from approving transactions. Is blockchain technology possible and how should I implement it here.
 
 
 

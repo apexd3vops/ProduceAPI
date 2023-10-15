@@ -16,7 +16,6 @@ class Produce(BaseModel):
     strProduceThumb: str
     on_sale: bool = False
     strCategory: str
-    strCatDescription: str
 
 class Categories(BaseModel):
     strCategory: str

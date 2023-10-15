@@ -10,7 +10,7 @@ router = APIRouter(
 )
 
 
-@router.post("/admin", response_model=responses.Token)
+@router.post("/admins", response_model=responses.Token)
 def login_admin(login_credentials: OAuth2PasswordRequestForm = Depends(), db: Session = Depends(get_db), ):
 
     admin = db.query(models.Admins).filter(
